@@ -24,9 +24,9 @@
 	function getBackgroundColor(state) {
 		switch (state) {
 				case status.FREE:
-					return "bg-success";
+					return "bg-green-100";
 				case status.BOOKED:
-					return "bg-danger";
+					return "bg-red-100";
 				case undefined:
 					return "";
 				default:
@@ -65,23 +65,33 @@
 	}
 </script>
 
-<table class="table table-bordered border-primary">
-	<tr>
-		{#each columns as column}
-			<th>{column}</th>
-		{/each}
-	</tr>
-
-	{#each data as row}
-		<tr>
-			{#each row as cell}
-				<td class="{getBackgroundColor(cell.status)}" on:click={() => bookItem(cell)}>
-					{(cell.time) ? cell.time : cell.status}
-				</td>
+<section class="container mx-auto p-6 font-mono">
+	<div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
+	  <div class="w-full overflow-x-auto">
+		<table class="w-full">
+			<thead>
+				<tr class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
+					{#each columns as column}
+						<th class="px-4 py-3">{column}</th>
+					{/each}
+				</tr>
+			</thead>
+			<tbody class="bg-white">
+				{#each data as row}
+				<tr class="text-gray-700">
+					{#each row as cell}
+						<td class="px-4 py-3 border {getBackgroundColor(cell.status)}" on:click={() => bookItem(cell)}>
+							{(cell.time) ? cell.time : cell.status}
+						</td>
+					{/each}
+				</tr>
 			{/each}
-		</tr>
-	{/each}
-</table>
+			</tbody>
+		</table>
+	  </div>
+	</div>
+</section>
+
 
 <p>
 [
