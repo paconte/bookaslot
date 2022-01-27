@@ -1,3 +1,4 @@
+const url = 'https://195.201.148.68/reservations/getBookings4';
 const data = [
 	//TODO: move to testing
 	[{id:1, time:"09:00 - 10:00"}, {id:2, status:"FREE"}, {id:3, status:"FREE"}],
@@ -8,7 +9,6 @@ const data = [
 ]
 
 async function fetchReservations() {
-	const url = 'http://195.201.148.68/reservations/getBookings4';
 	const response = await fetch(url);
 	const reservations = await response.json();
 	return reservations;
