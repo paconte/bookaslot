@@ -1,8 +1,8 @@
 <script>
 	import { bookings } from './stores.js';
-	import { fetchBookings } from './service.js';
+	import { getReservationsTable } from './service.js';
 	let columns = ["Time", "Pista 1", "Pista 2"]
-	let data = fetchBookings('');
+	let data = getReservationsTable();
 
 	const status = {
 		FREE: "FREE",
@@ -36,8 +36,8 @@
 		}
 	}
 
-	function updateItemState(item, state) {
-		data.forEach(row => {
+	function updateItemState(item, state, matrix) {
+		matrix.forEach(row => {
 		  // find item
 			var index = row.map((cell) => cell.id).indexOf(item.id);
 			// update data
@@ -51,19 +51,20 @@
 	}
 
 	/* COMPONENT methods */
-	function bookItem(item) {
+	function bookItem(item, matrix) {
 		switch (item.status) {
 			case status.BOOKED:
-				data = updateItemState(item, status.FREE);
+				data = updateItemState(item, status.FREE, matrix);
 				deleteBooking(item);
 				break;
 			case status.FREE:
-				data = updateItemState(item, status.BOOKED);
+				data = updateItemState(item, status.BOOKED, matrix);
 				addBooking(item);
 				break;
 		}
 	}
 </script>
+
 
 <section class="container mx-auto p-6 font-mono">
 	<div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
@@ -77,15 +78,17 @@
 				</tr>
 			</thead>
 			<tbody class="bg-white">
-				{#each data as row}
-				<tr class="text-gray-700">
-					{#each row as cell}
-						<td class="px-4 py-3 border {getBackgroundColor(cell.status)}" on:click={() => bookItem(cell)}>
-							{(cell.time) ? cell.time : cell.status}
-						</td>
+				{#await data then matrix}
+					{#each matrix as row}
+					<tr class="text-gray-700">
+						{#each row as cell}
+							<td class="px-4 py-3 border {getBackgroundColor(cell.status)}" on:click={() => bookItem(cell, matrix)}>
+								{(cell.timeString) ? cell.timeString : cell.status}
+							</td>
+						{/each}
+					</tr>
 					{/each}
-				</tr>
-			{/each}
+				{/await}
 			</tbody>
 		</table>
 	  </div>
