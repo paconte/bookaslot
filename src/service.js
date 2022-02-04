@@ -1,4 +1,6 @@
-const url = 'https://195.201.148.68/reservations/getBookings4';
+const dayReservationsUrl = 'https://195.201.148.68/reservations/getBookings4';
+
+
 const data = [
 	//TODO: move to testing
 	[{id:1, time:"09:00 - 10:00"}, {id:2, status:"FREE"}, {id:3, status:"FREE"}],
@@ -6,11 +8,39 @@ const data = [
   	[{id:7, time:"11:00 - 13:00"}, {id:8, status:"FREE"}, {id:9, status:"FREE"}],
   	[{id:10, time:"12:00 - 13:00"}, {id:11, status:"FREE"}, {id:12, status:"FREE"}],
   	[{id:13, time:"13:00 - 14:00"}, {id:14, status:"FREE"}, {id:15, status:"FREE"}],
+];
+
+
+const data2 = [
+	{
+		date: "TODAY",
+		data: [
+			//TODO: move to testing
+			{time:{init:1641027600, end:1641031200}, items: [{id:2, status:"FREE", time:{init:1641027600, end:1641031200}}, {id:3, status:"FREE", time:{init:1641027600, end:1641031200}}]},
+			{time:{init:1641027600, end:1641031200}, items: [{id:5, status:"FREE", time:{init:1641027600, end:1641031200}}, {id:6, status:"FREE", time:{init:1641027600, end:1641031200}}]},
+			{time:{init:1641027600, end:1641031200}, items: [{id:8, status:"FREE", time:{init:1641027600, end:1641031200}}, {id:9, status:"FREE", time:{init:1641027600, end:1641031200}}]},
+			{time:{init:1641027600, end:1641031200}, items: [{id:11, status:"FREE", time:{init:1641027600, end:1641031200}}, {id:12, status:"FREE", time:{init:1641027600, end:1641031200}}]},
+			{time:{init:1641027600, end:1641031200}, items: [{id:14, status:"FREE", time:{init:1641027600, end:1641031200}}, {id:15, status:"FREE", time:{init:1641027600, end:1641031200}}]},
+		]
+	},
+	{
+		date: "TOMORROW",
+		data: [
+			//TODO: move to testing
+			{time:{init:1641027600, end:1641031200}, items: [{id:2, status:"FREE", time:{init:1641027600, end:1641031200}}, {id:3, status:"FREE", time:{init:1641027600, end:1641031200}}]},
+			{time:{init:1641027600, end:1641031200}, items: [{id:5, status:"FREE", time:{init:1641027600, end:1641031200}}, {id:6, status:"FREE", time:{init:1641027600, end:1641031200}}]},
+			{time:{init:1641027600, end:1641031200}, items: [{id:8, status:"FREE", time:{init:1641027600, end:1641031200}}, {id:9, status:"FREE", time:{init:1641027600, end:1641031200}}]},
+			{time:{init:1641027600, end:1641031200}, items: [{id:11, status:"FREE", time:{init:1641027600, end:1641031200}}, {id:12, status:"FREE", time:{init:1641027600, end:1641031200}}]},
+			{time:{init:1641027600, end:1641031200}, items: [{id:14, status:"FREE", time:{init:1641027600, end:1641031200}}, {id:15, status:"FREE", time:{init:1641027600, end:1641031200}}]},
+		]
+	},
 ]
 
-async function fetchReservations() {
-	const response = await fetch(url);
+
+async function fetchDayReservations() {
+	const response = await fetch(dayReservationsUrl);
 	const reservations = await response.json();
+
 	return reservations;
 }
 
@@ -31,9 +61,8 @@ function formatTime(timestamp) {
 }
 
 
-export async function getReservationsTable() {
+function formatDayReservations(reservations) {
 	let result = Array();
-	const reservations = await fetchReservations();
 
 	reservations.forEach(element => {
 		let time =
@@ -47,4 +76,31 @@ export async function getReservationsTable() {
 	});
 
 	return result;
+}
+
+
+export async function getReservationsTable() {
+	const reservations = await fetchDayReservations();
+	return formatDayReservations(reservations);
+}
+
+
+export function getReservationsTable2() {
+	let result = Array();
+	const weekReservations = data2;
+
+	weekReservations.forEach(item => {
+		let newItem = {
+			date: item.date,
+			data: formatDayReservations(item.data)
+		};
+		result.push(newItem);
+	});
+
+	return result;
+}
+
+
+export function findIndex(data, date) {
+    return data.findIndex(element => element.date == date);
 }
