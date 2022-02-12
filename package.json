@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "concurrently": "^7.0.0",
+    "dateformat": "^5.0.2",
     "sirv-cli": "^1.0.0"
   }
 }

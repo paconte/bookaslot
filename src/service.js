@@ -1,5 +1,7 @@
-const dayReservationsUrl = 'https://195.201.148.68/reservations/getBookings4';
+import dateFormat from "dateformat";
 
+const hourlyReservationsUrl = 'https://195.201.148.68/reservations/getBookings4';
+const dailyReservationsUrl = 'https://195.201.148.68/reservations/getBookings6';
 
 const data = [
 	//TODO: move to testing
@@ -37,10 +39,9 @@ const data2 = [
 ]
 
 
-async function fetchDayReservations() {
-	const response = await fetch(dayReservationsUrl);
+async function fetchReservations(url) {
+	const response = await fetch(url);
 	const reservations = await response.json();
-
 	return reservations;
 }
 
@@ -80,16 +81,16 @@ function formatDayReservations(reservations) {
 
 
 export async function getReservationsTable() {
-	const reservations = await fetchDayReservations();
+	const reservations = await fetchReservations(hourlyReservationsUrl);
 	return formatDayReservations(reservations);
 }
 
 
 export function getReservationsTable2() {
 	let result = Array();
-	const weekReservations = data2;
+	const data = data2;
 
-	weekReservations.forEach(item => {
+	data.forEach(item => {
 		let newItem = {
 			date: item.date,
 			data: formatDayReservations(item.data)
@@ -101,6 +102,32 @@ export function getReservationsTable2() {
 }
 
 
+export async function getReservationsTable3() {
+	let result = Array();
+	let data = await fetchReservations(dailyReservationsUrl);
+
+	data.forEach(item => {
+		let newItem = {
+			date: item.date,
+			data: formatDayReservations(item.data)
+		};
+		result.push(newItem);
+	});
+
+	return result;
+}
+
+
+
 export function findIndex(data, date) {
-    return data.findIndex(element => element.date == date);
+	return data.findIndex(element => element.date == date);
+}
+
+
+export function formatDate(thedate) {
+	return dateFormat(thedate, "yyyy-mm-dd");
+}
+
+export function formatDate2(thedate) {
+	return dateFormat(thedate, "dddd, d.m.yy");
 }
