@@ -4,6 +4,7 @@
 
 	export let data;
 
+	//let columns = ["Time", "Pista 1", "Pista 2", "Pista 3", "Pista 4", "Pista 5", "Pista 6"]
 	let columns = ["Time", "Pista 1", "Pista 2"]
 	let currentData;
 	let index;
@@ -11,6 +12,7 @@
 	const status = {
 		FREE: "FREE",
 		BOOKED: "BOOKED",
+		TO_BE_BOOKED: "TO_BE_BOOKED",
 	}
 
 	/* STORE subscriptions */
@@ -41,6 +43,9 @@
 			case status.BOOKED:
 				result = "bg-red-100";
 				break;
+			case status.TO_BE_BOOKED:
+				result = "bg-yellow-100";
+				break;
 			case undefined:
 				result = "";
 				break;
@@ -69,12 +74,12 @@
 
 	function bookItem(item) {
 		switch (item.status) {
-			case status.BOOKED:
+			case status.TO_BE_BOOKED:
 				updateItemState(item, status.FREE);
 				deleteBooking(item);
 				break;
 			case status.FREE:
-				updateItemState(item, status.BOOKED);
+				updateItemState(item, status.TO_BE_BOOKED);
 				addBooking(item);
 				break;
 		}
@@ -87,22 +92,23 @@
 		<table class="w-full">
 			<thead>
 				<tr class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
-					{#each columns as column}
-						<th class="px-4 py-3">{column}</th>
+					{#each columns as column, i}
+						<th class="px-4 py-3 {i===0 ? "w-40" : ""}">{column}</th>
+						<!-- <th class="px-4 py-3">{column}</th> -->
 					{/each}
 				</tr>
 			</thead>
 
 			<tbody class="bg-white">
-					{#each currentData as row}
+				{#each currentData as row}
 					<tr class="text-gray-700">
 						{#each row as cell}
 							<td on:click={() => bookItem(cell)} class="px-4 py-3 border {getBackgroundColor(cell.status)}">
-								{(cell.timeString) ? cell.timeString : cell.status}
+								{(cell.timeString) ? cell.timeString : ""}
 							</td>
 						{/each}
 					</tr>
-					{/each}
+				{/each}
 			</tbody>
 		</table>
 	</div>
