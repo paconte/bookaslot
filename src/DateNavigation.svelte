@@ -51,7 +51,7 @@
         </div>
   </button>
 
-  <button type="button" class="bg-red-700 bg-gray-800 text-white rounded-l-md rounded-r-md border-r border-gray-100 py-2 px-3">
+  <button type="button" class="bg-red-700 bg-gray-800 text-white rounded-l-md rounded-r-md border-r border-gray-100 py-2 px-3 w-60">
         {formatDate2(date)}
   </button>
 
