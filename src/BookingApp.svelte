@@ -1,9 +1,9 @@
 <script>
 	import DateNavigation from './DateNavigation.svelte';
 	import BookingTable from './BookingTable.svelte';
-	import {getReservationsTable2, getReservationsTable3} from './service.js';
+	import {getReservationsTable3} from './service.js';
 
-	let weekData = getReservationsTable2();
+	//let weekData = getReservationsTable2();
 	let dailyData = getReservationsTable3();
 </script>
 

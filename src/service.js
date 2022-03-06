@@ -1,15 +1,18 @@
 import dateFormat from "dateformat";
 
 const hourlyReservationsUrl = 'https://195.201.148.68/reservations/getBookings4';
-const dailyReservationsUrl = 'https://195.201.148.68/reservations/getBookings6';
+//const dailyReservationsUrl = 'https://195.201.148.68/reservations/getBookings6';
+const dailyReservationsUrl = 'http://0.0.0.0:8000/getBookings6';
+//const addReservationUrl = 'https://195.201.148.68/reservations/add_reservations';
+const addReservationUrl = 'http://0.0.0.0:8000/addReservations';
 
 const data = [
 	//TODO: move to testing
-	[{id:1, time:"09:00 - 10:00"}, {id:2, status:"FREE"}, {id:3, status:"FREE"}],
-  	[{id:4, time:"10:00 - 11:00"}, {id:5, status:"FREE"}, {id:6, status:"FREE"}],
-  	[{id:7, time:"11:00 - 13:00"}, {id:8, status:"FREE"}, {id:9, status:"FREE"}],
-  	[{id:10, time:"12:00 - 13:00"}, {id:11, status:"FREE"}, {id:12, status:"FREE"}],
-  	[{id:13, time:"13:00 - 14:00"}, {id:14, status:"FREE"}, {id:15, status:"FREE"}],
+	[{id:1, time:"09:00 - 10:00"}, {id:2, state:"FREE"}, {id:3, state:"FREE"}],
+	[{id:4, time:"10:00 - 11:00"}, {id:5, state:"FREE"}, {id:6, state:"FREE"}],
+	[{id:7, time:"11:00 - 13:00"}, {id:8, state:"FREE"}, {id:9, state:"FREE"}],
+	[{id:10, time:"12:00 - 13:00"}, {id:11, state:"FREE"}, {id:12, state:"FREE"}],
+	[{id:13, time:"13:00 - 14:00"}, {id:14, state:"FREE"}, {id:15, state:"FREE"}],
 ];
 
 
@@ -18,31 +21,43 @@ const data2 = [
 		date: "TODAY",
 		data: [
 			//TODO: move to testing
-			{time:{init:1641027600, end:1641031200}, items: [{id:2, status:"FREE", time:{init:1641027600, end:1641031200}}, {id:3, status:"FREE", time:{init:1641027600, end:1641031200}}]},
-			{time:{init:1641027600, end:1641031200}, items: [{id:5, status:"FREE", time:{init:1641027600, end:1641031200}}, {id:6, status:"FREE", time:{init:1641027600, end:1641031200}}]},
-			{time:{init:1641027600, end:1641031200}, items: [{id:8, status:"FREE", time:{init:1641027600, end:1641031200}}, {id:9, status:"FREE", time:{init:1641027600, end:1641031200}}]},
-			{time:{init:1641027600, end:1641031200}, items: [{id:11, status:"FREE", time:{init:1641027600, end:1641031200}}, {id:12, status:"FREE", time:{init:1641027600, end:1641031200}}]},
-			{time:{init:1641027600, end:1641031200}, items: [{id:14, status:"FREE", time:{init:1641027600, end:1641031200}}, {id:15, status:"FREE", time:{init:1641027600, end:1641031200}}]},
+			{time:{init:1641027600, end:1641031200}, items: [{id:2, state:"FREE", time:{init:1641027600, end:1641031200}}, {id:3, state:"FREE", time:{init:1641027600, end:1641031200}}]},
+			{time:{init:1641027600, end:1641031200}, items: [{id:5, state:"FREE", time:{init:1641027600, end:1641031200}}, {id:6, state:"FREE", time:{init:1641027600, end:1641031200}}]},
+			{time:{init:1641027600, end:1641031200}, items: [{id:8, state:"FREE", time:{init:1641027600, end:1641031200}}, {id:9, state:"FREE", time:{init:1641027600, end:1641031200}}]},
+			{time:{init:1641027600, end:1641031200}, items: [{id:11, state:"FREE", time:{init:1641027600, end:1641031200}}, {id:12, state:"FREE", time:{init:1641027600, end:1641031200}}]},
+			{time:{init:1641027600, end:1641031200}, items: [{id:14, state:"FREE", time:{init:1641027600, end:1641031200}}, {id:15, state:"FREE", time:{init:1641027600, end:1641031200}}]},
 		]
 	},
 	{
 		date: "TOMORROW",
 		data: [
 			//TODO: move to testing
-			{time:{init:1641027600, end:1641031200}, items: [{id:2, status:"FREE", time:{init:1641027600, end:1641031200}}, {id:3, status:"FREE", time:{init:1641027600, end:1641031200}}]},
-			{time:{init:1641027600, end:1641031200}, items: [{id:5, status:"FREE", time:{init:1641027600, end:1641031200}}, {id:6, status:"FREE", time:{init:1641027600, end:1641031200}}]},
-			{time:{init:1641027600, end:1641031200}, items: [{id:8, status:"FREE", time:{init:1641027600, end:1641031200}}, {id:9, status:"FREE", time:{init:1641027600, end:1641031200}}]},
-			{time:{init:1641027600, end:1641031200}, items: [{id:11, status:"FREE", time:{init:1641027600, end:1641031200}}, {id:12, status:"FREE", time:{init:1641027600, end:1641031200}}]},
-			{time:{init:1641027600, end:1641031200}, items: [{id:14, status:"FREE", time:{init:1641027600, end:1641031200}}, {id:15, status:"FREE", time:{init:1641027600, end:1641031200}}]},
+			{time:{init:1641027600, end:1641031200}, items: [{id:2, state:"FREE", time:{init:1641027600, end:1641031200}}, {id:3, state:"FREE", time:{init:1641027600, end:1641031200}}]},
+			{time:{init:1641027600, end:1641031200}, items: [{id:5, state:"FREE", time:{init:1641027600, end:1641031200}}, {id:6, state:"FREE", time:{init:1641027600, end:1641031200}}]},
+			{time:{init:1641027600, end:1641031200}, items: [{id:8, state:"FREE", time:{init:1641027600, end:1641031200}}, {id:9, state:"FREE", time:{init:1641027600, end:1641031200}}]},
+			{time:{init:1641027600, end:1641031200}, items: [{id:11, state:"FREE", time:{init:1641027600, end:1641031200}}, {id:12, state:"FREE", time:{init:1641027600, end:1641031200}}]},
+			{time:{init:1641027600, end:1641031200}, items: [{id:14, state:"FREE", time:{init:1641027600, end:1641031200}}, {id:15, state:"FREE", time:{init:1641027600, end:1641031200}}]},
 		]
 	},
 ]
 
 
 async function fetchReservations(url) {
+	//await debugReservations(url);
 	const response = await fetch(url);
 	const reservations = await response.json();
 	return reservations;
+
+}
+
+
+async function debugReservations(url) {
+	fetch(url)
+	.then(res => {
+		console.log(res);
+		res.json();
+	}).catch(error => console.error('Error:', error))
+	.then(response => console.log('Success:', response));
 }
 
 
@@ -117,6 +132,23 @@ export async function getReservationsTable3() {
 	return result;
 }
 
+
+export async function addReservations(slots) {
+	//var url = 'https://195.201.148.68/reservations/add_reservations';
+	var url = 'http://127.0.0.1:8000/addReservations';
+
+	var sipote1 = JSON.stringify(slots);
+
+	fetch(url, {
+		method: 'POST', // or 'PUT'
+		mode: 'no-cors', // no-cors, *cors, same-origin
+		//body: JSON.stringify(slots), // data can be `string` or {object}!
+		body: slots,
+		headers: {'Content-Type': 'application/json'}
+	}).then(res => res.json())
+	.catch(error => console.error('Error:', error))
+	.then(response => console.log('Success:', response));
+}
 
 
 export function findIndex(data, date) {
