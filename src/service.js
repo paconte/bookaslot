@@ -1,8 +1,8 @@
 import dateFormat from "dateformat";
 
 const hourlyReservationsUrl = 'https://195.201.148.68/reservations/getBookings4';
-//const dailyReservationsUrl = 'https://195.201.148.68/reservations/getBookings6';
-const dailyReservationsUrl = 'http://0.0.0.0:8000/getBookings6';
+const dailyReservationsUrl = 'https://195.201.148.68/reservations/getBookings6';
+//const dailyReservationsUrl = 'http://0.0.0.0:8000/getBookings6';
 //const addReservationUrl = 'https://195.201.148.68/reservations/add_reservations';
 const addReservationUrl = 'http://0.0.0.0:8000/addReservations';
 
