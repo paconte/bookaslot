@@ -3,8 +3,8 @@ import dateFormat from "dateformat";
 const hourlyReservationsUrl = 'https://195.201.148.68/reservations/getBookings4';
 const dailyReservationsUrl = 'https://195.201.148.68/reservations/getBookings6';
 //const dailyReservationsUrl = 'http://0.0.0.0:8000/getBookings6';
-//const addReservationUrl = 'https://195.201.148.68/reservations/add_reservations';
-const addReservationUrl = 'http://0.0.0.0:8000/addReservations';
+const addReservationUrl = 'https://195.201.148.68/reservations/addReservations';
+//const addReservationUrl = 'http://0.0.0.0:8000/addReservations';
 
 const data = [
 	//TODO: move to testing
@@ -40,6 +40,13 @@ const data2 = [
 		]
 	},
 ]
+
+
+export const state = {
+	FREE: "FREE",
+	BOOKED: "BOOKED",
+	TO_BE_BOOKED: "TOBEBOOKED",
+}
 
 
 async function fetchReservations(url) {
@@ -134,20 +141,21 @@ export async function getReservationsTable3() {
 
 
 export async function addReservations(slots) {
-	//var url = 'https://195.201.148.68/reservations/add_reservations';
-	var url = 'http://127.0.0.1:8000/addReservations';
-
-	var sipote1 = JSON.stringify(slots);
-
-	fetch(url, {
+	const response = await fetch(addReservationUrl, {
 		method: 'POST', // or 'PUT'
-		mode: 'no-cors', // no-cors, *cors, same-origin
-		//body: JSON.stringify(slots), // data can be `string` or {object}!
-		body: slots,
+		mode: 'cors', // no-cors, cors, same-origin
+		body: JSON.stringify(slots), // data can be `string` or {object}!
 		headers: {'Content-Type': 'application/json'}
-	}).then(res => res.json())
-	.catch(error => console.error('Error:', error))
-	.then(response => console.log('Success:', response));
+	});
+
+	if (response.status === 201) {
+		return await response.json();
+	} else if (response.status === 200) {
+		const data = await response.json();
+		throw new Error(data.details);
+	} else {
+		throw new Error(response.statusText);
+	}
 }
 
 
