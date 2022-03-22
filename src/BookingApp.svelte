@@ -12,23 +12,6 @@
 
 	<!-- components -->
 	<section class="container mx-auto p-6 font-mono">
-		<!--
-		{#await dailyData}
-			<p>...waiting</p>
-		{:then values}
-			<p>The value is:</p>
-			{#each values as value}
-				<p>
-					{value.date} -
-					{#each value.data as bla}
-						{bla.data}
-					{/each}
-				</p>
-			{/each}
-		{:catch error}
-			<p style="color: red">{error.message}</p>
-		{/await}
-		-->
 
 		{#await dailyData}
 			<p>...waiting</p>
@@ -38,7 +21,6 @@
 
 			<BookingTable data={data}/>
 			<br />
-
 		{:catch error}
 			<p style="color: red">{error.message}</p>
 		{/await}

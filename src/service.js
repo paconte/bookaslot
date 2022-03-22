@@ -68,22 +68,6 @@ async function debugReservations(url) {
 }
 
 
-function formatMinutes(minutes) {
-	let result = minutes;
-	if (minutes < 10) {
-		result = "0" + minutes;
-	}
-	return result;
-}
-
-
-function formatTime(timestamp) {
-	let date = new Date(timestamp);
-	let minutes = formatMinutes(date.getMinutes());
-	return date.getHours() + ":" + minutes;
-}
-
-
 function formatDayReservations(reservations) {
 	let result = Array();
 
@@ -164,10 +148,41 @@ export function findIndex(data, date) {
 }
 
 
-export function formatDate(thedate) {
-	return dateFormat(thedate, "yyyy-mm-dd");
+function formatMinutes(minutes) {
+	let result = minutes;
+	if (minutes < 10) {
+		result = "0" + minutes;
+	}
+	return result;
 }
 
+
+export function formatTime(timestamp) {
+	let date = new Date(timestamp);
+	let minutes = formatMinutes(date.getMinutes());
+	let hours = date.getHours();
+	if (hours < 10) {
+		hours = '0' + hours;
+	}
+	return hours + ":" + minutes;
+}
+
+
+export function formatDate(timestamp) {
+    /**
+    * Returns a formatted date from a unix timestamp in misiliseconds
+    * @param  timestamp timestamp in miliseconds
+    * @return a human readable string representing the date part of time-date
+    */
+	return dateFormat(timestamp, "yyyy-mm-dd");
+}
+
+
 export function formatDate2(thedate) {
+    /**
+    * Returns a formatted date from a unix timestamp in misiliseconds
+    * @param  timestamp timestamp in miliseconds
+    * @return a human readable string representing the date part of time-date
+    */
 	return dateFormat(thedate, "dddd, d.m.yy");
 }
