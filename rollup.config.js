@@ -44,7 +44,7 @@ export default {
 	plugins: [
 		replace({
 			preventAssignment: true,
-            USER_NAME: JSON.stringify(process.env.USER_NAME)
+            BACKEND_URL: JSON.stringify(process.env.BACKEND_URL),
         }),
 		svelte({
 			compilerOptions: {
