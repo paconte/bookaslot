@@ -5,10 +5,13 @@
 
 	//let weekData = getReservationsTable2();
 	let dailyData = getReservationsTable3();
+	let backendUrl = BACKEND_URL;
 </script>
 
 
 <main>
+
+	<p style="color: red">{backendUrl}</p>
 
 	<!-- components -->
 	<section class="container mx-auto p-6 font-mono">
